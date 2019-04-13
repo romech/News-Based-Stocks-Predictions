@@ -1,9 +1,9 @@
 source:
-  news: data/source/RedditNews.csv
-  stocks: data/source/DJIA_table.csv
-  combined: data/source/Combined_News_DJIA.csv
+  news: ../data/source/RedditNews.csv
+  stocks: ../data/source/DJIA_table.csv
+  combined: ../data/source/Combined_News_DJIA.csv
 
-output_folder: data/intermediate/
+output_folder: ../data/intermediate/
 
 # разделение дней на train-test по интервалам. В процентах от начала
 splits:
@@ -15,3 +15,16 @@ text-simplifying:
   min-length: 3
   stemming: false
   lemmatizing: true
+
+# see https://nlp.stanford.edu/software/tokenizer.html
+stanford-tokenizer:
+  classpath: '../stanford-corenlp-full-2018-10-05/*'
+  parameters:
+    - preserveLines
+    - lowerCase
+  exclude:
+    - '[a-zA-Z]' # single letter
+    - '[^\w]+'   # sequence of non-digits, non-letters
+    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
+  options:
+    - "ptb3Escaping=false"

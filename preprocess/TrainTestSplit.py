@@ -1,16 +1,15 @@
 import csv
-import yaml
+from utils.config import Config
 
 
-with open("preproc.config.yml", "r") as cfg_file:
-    config = yaml.full_load(cfg_file)
+config = Config.open("preproc.config.yml")
 
 
 def run():
-    with open('../' + config['source']['combined'], "r", newline='') as table_file:
+    with open(config('source.combined'), "r", newline='') as table_file:
         news = list(csv.reader(table_file))[1:]
 
-    for i, split in enumerate(config['splits']):
+    for i, split in enumerate(config('splits')):
         train_data, test_data = make_split(news, split['train'], split['test'])
 
         _write_csv(train_data, 'train_data_' + str(i))
@@ -28,7 +27,7 @@ def _slice(size, start, end):
 
 
 def _allocate_output_csv(name):
-    return open('../' + config['output_folder'] + name + '.csv', 'w', newline='')
+    return open(config('output_folder') + name + '.csv', 'w', newline='')
 
 
 def _write_csv(rows, name):
