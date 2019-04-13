@@ -2,7 +2,7 @@ import os
 import tempfile
 from utils.config import Config
 
-config = Config.open("preproc.config.yml")
+config = Config.open("config.yml")
 
 
 def tokenize(string):
@@ -37,7 +37,8 @@ def build_shell_command(input_path, output_path):
 
 
 def run():
-    tokenize_file(config("source.combined"), config("output_folder"))
+    tokenize_file(config("path.combined"), config("path.tokenized"))
+
 
 if __name__ == '__main__':
     tokenize("U.S. gosdolg is $100'000'000'000'000'000, how's that for you, @ElonMusk?")

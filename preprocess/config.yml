@@ -1,0 +1,36 @@
+path:
+  # source
+  news: ../data/source/RedditNews.csv
+  stocks: ../data/source/DJIA_table.csv
+  combined: ../data/source/Combined_News_DJIA.csv
+  # intermediate
+  tokenized: ../data/intermediate/news_tokenized.csv
+  tokens-train: ../data/intermediate/tokens_train_{}.csv
+  tokens-test: ../data/intermediate/tokens_test_{}.csv
+  stems-train: ../data/intermediate/stems_train_{}.csv
+  stems-test: ../data/intermediate/stems_test_{}.csv
+
+
+# разделение дней на train-test по интервалам. В процентах от начала
+splits:
+  - { train: [0, 10], test: [10, 20] }
+
+
+# текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
+text-simplifying:
+  min-length: 2
+  stemming: false
+  lemmatizing: true
+
+# see https://nlp.stanford.edu/software/tokenizer.html
+stanford-tokenizer:
+  classpath: '../stanford-corenlp-full-2018-10-05/*'
+  parameters:
+    - preserveLines
+    - lowerCase
+  exclude:
+    - '[a-zA-Z]' # single letter
+    - '[^\w]+'   # sequence of non-digits, non-letters
+    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
+  options:
+    - "ptb3Escaping=false"
