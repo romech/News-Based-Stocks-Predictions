@@ -1,0 +1,17 @@
+source:
+  news: data/source/RedditNews.csv
+  stocks: data/source/DJIA_table.csv
+  combined: data/source/Combined_News_DJIA.csv
+
+output_folder: data/intermediate/
+
+# разделение дней на train-test по интервалам. В процентах от начала
+splits:
+  - { train: [0, 10], test: [10, 20] }
+
+
+# текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
+text-simplifying:
+  min-length: 3
+  stemming: false
+  lemmatizing: true
