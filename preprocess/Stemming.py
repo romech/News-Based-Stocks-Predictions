@@ -3,7 +3,7 @@ from utils.config import Config
 from nltk.corpus import stopwords
 
 # TODO: squash stuff like Russia Today, United States...
-config = Config.open("config.yml")
+config = Config.open("../config.yml")
 _min_word_length = config("text-simplifying.min-length")
 _stopwords = stopwords.words('english')
 

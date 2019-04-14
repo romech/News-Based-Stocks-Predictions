@@ -6,13 +6,19 @@ path:
   # intermediate
   tokenized: ../data/intermediate/news_tokenized.csv
   stemmed: ../data/intermediate/news_stemmed.csv
-  stems-split: ../data/intermediate/stems_part_{}.csv
+  stems-split: ../data/intermediate/stems_part_{}.txt
   split-tags: ../data/intermediate/stems_part_{}_dates.txt
+  # LDA
+  lda-log: ../data/intermediate/lda/{}/lda.log
+  lda-summary: ../data/intermediate/lda/{}/summary.tsv
+  lda-model: ../data/intermediate/lda/{}/model
 
 
 # разделение дней на train-test по интервалам. В процентах от начала
 splits:
-  train: [0, 10]
+  train: [0, 50]
+  test: [50, 85]
+  holdout: [85, 101]
 
 
 # текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
@@ -33,3 +39,12 @@ stanford-tokenizer:
 #    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
   options:
     - "ptb3Escaping=false"
+
+lda:
+  word-extremes:
+    min-count: 3
+    max-freq: 0.03
+
+  topics: 50
+  epochs: 500
+  eval-every: 100
