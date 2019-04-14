@@ -1,19 +1,18 @@
 path:
   # source
-  news: ../data/source/RedditNews.csv
+  news: ../data/source/RedditNews.tsv
   stocks: ../data/source/DJIA_table.csv
   combined: ../data/source/Combined_News_DJIA.csv
   # intermediate
   tokenized: ../data/intermediate/news_tokenized.csv
-  tokens-train: ../data/intermediate/tokens_train_{}.csv
-  tokens-test: ../data/intermediate/tokens_test_{}.csv
-  stems-train: ../data/intermediate/stems_train_{}.csv
-  stems-test: ../data/intermediate/stems_test_{}.csv
+  stemmed: ../data/intermediate/news_stemmed.csv
+  stems-split: ../data/intermediate/stems_part_{}.csv
+  split-tags: ../data/intermediate/stems_part_{}_dates.txt
 
 
 # разделение дней на train-test по интервалам. В процентах от начала
 splits:
-  - { train: [0, 10], test: [10, 20] }
+  train: [0, 10]
 
 
 # текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
@@ -31,6 +30,6 @@ stanford-tokenizer:
   exclude:
     - '[a-zA-Z]' # single letter
     - '[^\w]+'   # sequence of non-digits, non-letters
-    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
+#    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
   options:
     - "ptb3Escaping=false"

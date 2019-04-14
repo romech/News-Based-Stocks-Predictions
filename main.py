@@ -8,5 +8,5 @@ nltk.download('wordnet')
 
 
 StanfordDocumentTokenizer.run()
-TrainTestSplit.run()
 Stemming.run()
+TrainTestSplit.run()

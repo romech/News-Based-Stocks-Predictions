@@ -3,7 +3,7 @@ import yaml
 
 class Config:
     def __init__(self, dict_like):
-        self.cfg = dict_like
+        self.dict_like = dict_like
 
     @classmethod
     def open(cls, path):
@@ -11,7 +11,7 @@ class Config:
             return Config(yaml.full_load(cfg_file))
 
     def __call__(self, name):
-        node = self.cfg
+        node = self.dict_like
         for prefix in name.split('.'):
             node = node[prefix]
 

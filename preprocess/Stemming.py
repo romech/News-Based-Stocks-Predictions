@@ -34,10 +34,8 @@ def word_filter_predicate(word):
 
 
 def run():
-    for i in range(len(config("splits"))):
-        transform_csv(config("path.tokens-train").format(i), config("path.stems-train").format(i))
-        transform_csv(config("path.tokens-test").format(i), config("path.stems-test").format(i))
+    transform_csv(config("path.tokenized"), config("path.stemmed"))
 
 
 if __name__ == '__main__':
-    transform_csv(config("path.tokens-train").format(0))
+    run()
