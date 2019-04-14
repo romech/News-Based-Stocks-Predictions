@@ -12,22 +12,10 @@ path:
   lda-log: ../data/intermediate/lda/{}/lda.log
   lda-summary: ../data/intermediate/lda/{}/summary.tsv
   lda-model: ../data/intermediate/lda/{}/model
+  lda-vis: ../data/intermediate/lda/{}/visualization.html
 
 
-# разделение дней на train-test по интервалам. В процентах от начала
-splits:
-  train: [0, 50]
-  test: [50, 85]
-  holdout: [85, 101]
-
-
-# текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
-text-simplifying:
-  min-length: 2
-  stemming: false
-  lemmatizing: true
-
-# see https://nlp.stanford.edu/software/tokenizer.html
+# Tokenizig (see https://nlp.stanford.edu/software/tokenizer.html)
 stanford-tokenizer:
   classpath: '../stanford-corenlp-full-2018-10-05/*'
   parameters:
@@ -36,15 +24,32 @@ stanford-tokenizer:
   exclude:
     - '[a-zA-Z]' # single letter
     - '[^\w]+'   # sequence of non-digits, non-letters
-#    - '(\d{4}\-\d\d\-\d\d,\d)' # table's 1 and 2 column
+    - "'.+"      # starting with '
+    - '\d{1,3}'  # meaningless numbers
   options:
     - "ptb3Escaping=false"
+    - "normalizeAmpersandEntity=true"
+    - "splitHyphenated=true"
+
+# текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
+text-simplifying:
+  min-length: 2
+  stemming: false
+  lemmatizing: true
+
+# разделение дней на train-test по интервалам. В процентах от начала
+splits:
+  train: [0, 50]
+  test: [50, 85]
+  holdout: [85, 101]
 
 lda:
   word-extremes:
     min-count: 3
-    max-freq: 0.03
+    max-freq: 0.02
 
   topics: 50
   epochs: 500
-  eval-every: 100
+#  eval-every: 100
+
+  visualization: true

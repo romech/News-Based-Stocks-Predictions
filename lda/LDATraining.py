@@ -4,6 +4,8 @@ import os
 
 from gensim.corpora.dictionary import Dictionary
 from gensim.models.ldamulticore import LdaMulticore
+import pyLDAvis
+import pyLDAvis.gensim
 
 from utils.config import Config
 from utils.iterators import grouper
@@ -37,6 +39,8 @@ def train(docs):
 
     top_topics = model.top_topics(corpus, topn=20)
     _output_summary(top_topics, config("path.lda-summary").format(label))
+    if lda_cfg("visualization"):
+        _output_visualization(config("path.lda-vis").format(label), model, corpus, _dict)
 
 
 def _output_summary(top_topics, path):
@@ -49,6 +53,12 @@ def _output_summary(top_topics, path):
 
 def _topic_repr_to_word(repr):
     return [word[1] for word in repr[0]]
+
+
+def _output_visualization(path, model, corpus, dictionary):
+    prepared_data = pyLDAvis.gensim.prepare(model, corpus, dictionary)
+    with open(path, "w") as f:
+        pyLDAvis.save_html(prepared_data, f)
 
 
 def run():
