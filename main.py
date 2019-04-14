@@ -1,5 +1,5 @@
 from preprocess import StanfordDocumentTokenizer, TrainTestSplit, Stemming
-from lda import LDATraining
+from lda import LDATraining, LDAPrediction
 
 """
 May need to run this:
@@ -12,3 +12,4 @@ StanfordDocumentTokenizer.run()
 Stemming.run()
 TrainTestSplit.run()
 LDATraining.run()
+LDAPrediction.run()

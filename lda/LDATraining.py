@@ -26,21 +26,29 @@ def train(docs):
                         datefmt='%H:%M:%S',
                         level=logging.INFO)
 
-    _dict = Dictionary(docs)
-    _dict.filter_extremes(no_below=lda_cfg("word-extremes.min-count"),
-                          no_above=lda_cfg("word-extremes.max-freq"))
-    corpus = [_dict.doc2bow(doc) for doc in docs]
+    dictionary = Dictionary(docs)
+    dictionary.filter_extremes(no_below=lda_cfg("word-extremes.min-count"),
+                               no_above=lda_cfg("word-extremes.max-freq"))
+    corpus = [dictionary.doc2bow(doc) for doc in docs]
     model = LdaMulticore(corpus,
-                         id2word=_dict,
+                         id2word=dictionary,
                          num_topics=num_topics,
                          passes=epochs,
                          eval_every=lda_cfg.dict_like.get("eval-every"))
+
+    return label, model, dictionary, corpus
+
+
+def train_save_trace(docs):
+    label, model, dictionary, corpus = train(docs)
     model.save(config("path.lda-model").format(label))
+    with open(config("path.lda-pointer"), "w") as f:
+        f.write(label)
 
     top_topics = model.top_topics(corpus, topn=20)
     _output_summary(top_topics, config("path.lda-summary").format(label))
     if lda_cfg("visualization"):
-        _output_visualization(config("path.lda-vis").format(label), model, corpus, _dict)
+        _output_visualization(config("path.lda-vis").format(label), model, corpus, dictionary)
 
 
 def _output_summary(top_topics, path):
@@ -51,8 +59,8 @@ def _output_summary(top_topics, path):
             print(*map('\t'.join, grouper(words, 5)), sep='\n', file=f)
 
 
-def _topic_repr_to_word(repr):
-    return [word[1] for word in repr[0]]
+def _topic_repr_to_word(topic_repr):
+    return [word[1] for word in topic_repr[0]]
 
 
 def _output_visualization(path, model, corpus, dictionary):
