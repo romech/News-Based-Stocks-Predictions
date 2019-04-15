@@ -17,8 +17,8 @@ path:
   lda-vis: ../data/intermediate/lda/{}/visualization.html
   lda-pointer: ../data/intermediate/lda/latest.txt
   # Further training
-  topic-distr: ../data/intermediate/topics_{}.txt
-
+  topic-distr: ../data/intermediate/topics_{}.txt # probably useless
+  context-topics: ../data/intermediate/day_context_{}.csv
 
 # Tokenizig (see https://nlp.stanford.edu/software/tokenizer.html)
 stanford-tokenizer:

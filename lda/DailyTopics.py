@@ -28,6 +28,10 @@ def repr_news_context_by_day(tag: str):
     return repr_for_days(_days_in_context_with(tag))
 
 
+def get_for_batch(tags: list):
+    return [get_news_context_by_day(tag) for tag in tags]
+
+
 def repr_batch(tags: list):
     return '\n'.join(repr_news_context_by_day(tag) for tag in tags)
 
@@ -52,7 +56,7 @@ def _days_in_context_with(tag: str):
     return all_tags[left:right + 1] if right >= 0 else []
 
 
-def _load_state():
+def load_state():
     global model, dictionary, news, all_tags
     model, dictionary = LDAPrediction.load_model_dict()
     news = news_groupby_tag()
@@ -60,5 +64,5 @@ def _load_state():
 
 
 if __name__ == '__main__':
-    _load_state()
+    load_state()
     print(repr_batch(['2010.06.07', '2010.06.08']))
