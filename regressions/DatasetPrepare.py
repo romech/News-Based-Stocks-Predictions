@@ -16,7 +16,7 @@ tags_grouped, target = None, None
 def _preload_data():
     global tags_grouped, target
     stocks_table = pd.read_csv(config("path.stocks"), index_col='Date')
-    target = stocks_table.Close.diff(-1).shift(1).dropna()
+    target = _get_target_values(stocks_table)
     stocks_data_tags = set(target.index)
 
     def in_stocks_data(tag):
@@ -42,6 +42,10 @@ def prepare_stocks():
         pd.DataFrame.to_csv(target.loc[part_index],
                             config("path.target").format(part_name),
                             header=False, index=False)
+
+
+def _get_target_values(table):
+    return (table.Close.diff(-1).shift(1) / table.Open).dropna()
 
 
 def _save_topics_as_table(corpus_topics: list, path: str):
