@@ -27,7 +27,7 @@ def topics_repr_to_string(topics_of_doc):
     return str(list(list(t) for t in topics_of_doc))
 
 
-def run(parts_names=None):
+def run(parts_names=('train',)):
     model, dictionary = load_model_dict()
 
     for part in parts_names or config("splits").dict_like.keys():
