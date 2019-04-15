@@ -8,6 +8,8 @@ path:
   stemmed: ../data/intermediate/news_stemmed.csv
   stems-split: ../data/intermediate/stems_{}.txt
   split-tags: ../data/intermediate/stems_{}_dates.txt
+  splits-tags: ../data/intermediate/splits.json
+
   # LDA
   lda-log: ../data/intermediate/lda/{}/lda.log
   lda-summary: ../data/intermediate/lda/{}/summary.tsv
@@ -51,8 +53,12 @@ lda:
     min-count: 3
     max-freq: 0.02
 
-  topics: 50
-  epochs: 500
+  topics: 100
+  epochs: 100
+  chunk-size: 5000
 #  eval-every: 100
 
   visualization: true
+
+regression-data:
+  num-days-context: 3

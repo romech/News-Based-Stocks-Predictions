@@ -34,7 +34,8 @@ def train(docs):
                          id2word=dictionary,
                          num_topics=num_topics,
                          passes=epochs,
-                         eval_every=lda_cfg.dict_like.get("eval-every"))
+                         eval_every=lda_cfg.dict_like.get("eval-every"),
+                         chunksize=lda_cfg("chunk-size"))
 
     return label, model, dictionary, corpus
 
@@ -72,7 +73,7 @@ def _output_visualization(path, model, corpus, dictionary):
 def run():
     with open(config("path.stems-split").format("train"), "r") as f:
         news = [line.strip().split(' ') for line in f]
-        train(news)
+        train_save_trace(news)
 
 
 if __name__ == '__main__':

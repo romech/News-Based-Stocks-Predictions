@@ -14,16 +14,16 @@ def load_model_dict():
     return LdaMulticore.load(model_path), Dictionary.load(model_path + '.id2word')
 
 
-def get_topics_of_doc(model, dictionary, words):
+def get_topics_of_doc(model: LdaMulticore, dictionary: Dictionary, words: str):
     bow = dictionary.doc2bow(words.split(' '))
     return model[bow]
 
 
-def get_topics_of_corpus(model, dictionary, corpus):
+def get_topics_of_corpus(model: LdaMulticore, dictionary: Dictionary, corpus: list):
     return [get_topics_of_doc(model, dictionary, doc) for doc in corpus]
 
 
-def _topics_repr_to_string(topics_of_doc):
+def topics_repr_to_string(topics_of_doc):
     return str(list(list(t) for t in topics_of_doc))
 
 
@@ -36,7 +36,7 @@ def run(parts_names=None):
 
             for doc in test_file:
                 topics = get_topics_of_doc(model, dictionary, doc)
-                print(_topics_repr_to_string(topics), file=distr_file)
+                print(topics_repr_to_string(topics), file=distr_file)
 
 
 if __name__ == '__main__':

@@ -41,4 +41,4 @@ def run():
 
 
 if __name__ == '__main__':
-    tokenize("U.S. gosdolg is $100'000'000'000'000'000, how's that for you, @ElonMusk?")
+    tokenize("2019.06.02\tU.S. gosdolg is $100'000'000'000'000'000, how's that for you, @ElonMusk?")
