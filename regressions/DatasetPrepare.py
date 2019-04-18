@@ -50,6 +50,14 @@ def prepare_stocks():
                             header=False, index=False)
 
 
+def get_feature_names():
+    if feature_names is not None:
+        return feature_names
+    else:
+        with open(config("path.features-descr"), "r") as description_json:
+            return list(json.load(description_json).values())
+
+
 def _get_target_values(table):
     return (table.Close.diff(-1).shift(1) / table.Open).dropna()
 

@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
+from regressions import DatasetPrepare
 from utils.config import Config
 
 config = Config.open("../config.yml")
@@ -30,7 +31,9 @@ def _load_y(part):
 
 def run():
     train()
-    print('Most important topics:', sorted(list(zip(rf.feature_importances_, range(100))))[:-10:-1])
+    top = reversed(sorted(list(zip(rf.feature_importances_, range(rf.n_features_))))[-10:])
+    feature_names = DatasetPrepare.get_feature_names()
+    print('Most important features:', *[f"\n{feature_names[feature]} {prob*100:.2f}%" for prob, feature in top])
     print('Binary classification score (over 100 days):', score())
 
 

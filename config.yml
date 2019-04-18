@@ -63,7 +63,7 @@ lda:
   visualization: true
 
 regression-data:
-  num-days-context: 3
+  num-days-context: 1
   sentiment-percentiles: [0, 33, 66, 100]
 
 random-forest:

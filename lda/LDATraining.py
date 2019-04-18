@@ -4,9 +4,8 @@ import os
 
 from gensim.corpora.dictionary import Dictionary
 from gensim.models.ldamulticore import LdaMulticore
-import pyLDAvis
-import pyLDAvis.gensim
 
+from lda.LDAPrediction import build_visualization
 from utils.config import Config
 from utils.iterators import grouper
 
@@ -49,12 +48,12 @@ def train_save_trace(docs):
     top_topics = model.top_topics(corpus, topn=20)
     _output_summary(top_topics, config("path.lda-summary").format(label))
     if lda_cfg("visualization"):
-        _output_visualization(config("path.lda-vis").format(label), model, corpus, dictionary)
+        build_visualization(config("path.lda-vis").format(label), model, corpus, dictionary)
 
 
 def _output_summary(top_topics, path):
     with open(path, "w") as f:
-        for i, topic_repr in enumerate(top_topics):
+        for i, topic_repr in enumerate(top_topics, 1):
             words = _topic_repr_to_word(topic_repr)
             print(f"Topic {i}:", file=f)
             print(*map('\t'.join, grouper(words, 5)), sep='\n', file=f)
@@ -62,12 +61,6 @@ def _output_summary(top_topics, path):
 
 def _topic_repr_to_word(topic_repr):
     return [word[1] for word in topic_repr[0]]
-
-
-def _output_visualization(path, model, corpus, dictionary):
-    prepared_data = pyLDAvis.gensim.prepare(model, corpus, dictionary)
-    with open(path, "w") as f:
-        pyLDAvis.save_html(prepared_data, f)
 
 
 def run():
