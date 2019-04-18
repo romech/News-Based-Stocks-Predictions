@@ -5,7 +5,7 @@ from utils.config import Config
 
 config = Config.open("../config.yml")
 
-rf = RandomForestClassifier(n_estimators=300)
+rf = RandomForestClassifier(n_estimators=config("random-forest.n-estimators"))
 
 
 def train():
@@ -21,13 +21,19 @@ def score():
 
 
 def _load_X(part):
-    return np.loadtxt(config("path.context-topics").format(part), delimiter=',')
+    return np.loadtxt(config("path.day-features").format(part), delimiter=',')
 
 
 def _load_y(part):
     return np.loadtxt(config("path.target").format(part))
 
 
-if __name__ == '__main__':
+def run():
     train()
-    print('Binary classification score:', score())
+    print('Most important topics:', sorted(list(zip(rf.feature_importances_, range(100))))[:-10:-1])
+    print('Binary classification score (over 100 days):', score())
+
+
+if __name__ == '__main__':
+    run()
+    # TODO: write results into file

@@ -9,7 +9,7 @@ path:
   stems-split: ../data/intermediate/stems_{}.txt # meaningful for train only
   split-tags: ../data/intermediate/stems_{}_dates.txt
   splits-tags: ../data/intermediate/splits.json
-
+  sentiments: ../data/prepared/sentiments.csv
   # LDA
   lda-log: ../data/intermediate/lda/{}/lda.log
   lda-summary: ../data/intermediate/lda/{}/summary.tsv
@@ -18,7 +18,8 @@ path:
   lda-pointer: ../data/intermediate/lda/latest.txt
   # Further training
   topic-distr: ../data/intermediate/topics_{}.txt # probably useless
-  context-topics: ../data/prepared/topics_{}.csv
+  day-features: ../data/prepared/features_{}.csv
+  features-descr: ../data/prepared/features_description.json
   target: ../data/prepared/target_{}.csv
 
 # Tokenizig (see https://nlp.stanford.edu/software/tokenizer.html)
@@ -40,14 +41,14 @@ stanford-tokenizer:
 # текст пропускается через: токенизатор, стеммер/лемматизатор, фильтр по длине и stopwords
 text-simplifying:
   min-length: 2
-  stemming: false
-  lemmatizing: true
+  stemming: true
+  lemmatizing: false
 
 # разделение дней на train-test по интервалам. В процентах от начала
 splits:
-  train: [0, 50]
-  test: [50, 85]
-  holdout: [85, 101]
+  train: [0, 65]
+  test: [65, 90]
+  holdout: [90, 101]
 
 lda:
   word-extremes:
@@ -55,11 +56,15 @@ lda:
     max-freq: 0.02
 
   topics: 100
-  epochs: 100
-  chunk-size: 5000
+  epochs: 1500
+  chunk-size: 6000
 #  eval-every: 100
 
   visualization: true
 
 regression-data:
   num-days-context: 3
+  sentiment-percentiles: [0, 33, 66, 100]
+
+random-forest:
+  n-estimators: 300
