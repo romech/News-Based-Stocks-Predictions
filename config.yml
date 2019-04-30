@@ -11,6 +11,8 @@ path:
   split-tags: ../data/intermediate/stems_{}_dates.txt
   splits-tags: ../data/intermediate/splits.json
   sentiments: ../data/prepared/sentiments.csv
+  # WordEmbeddings
+  article-embeds: ../data/prepared/article_vectors.txt
   # LDA
   lda-log: ../data/intermediate/lda/{}/lda.log
   lda-summary: ../data/intermediate/lda/{}/summary.tsv

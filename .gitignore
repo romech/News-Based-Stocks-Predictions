@@ -1,6 +1,10 @@
 venv
 .idea
 stanford-corenlp-full-*
+fastText-*
+data/intermediate
+data/prepared
+
 
 # Created by https://www.gitignore.io/api/pycharm,virtualenv
 # Edit at https://www.gitignore.io/?templates=pycharm,virtualenv
