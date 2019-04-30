@@ -3,6 +3,7 @@ path:
   news: ../data/source/RedditNews.tsv
   stocks: ../data/source/DJIA_table.csv
   combined: ../data/source/Combined_News_DJIA.csv
+  fbprophet: ../data/source/FbProphecies.csv
   # intermediate
   tokenized: ../data/intermediate/news_tokenized.csv
   stemmed: ../data/intermediate/news_stemmed.csv
@@ -68,3 +69,5 @@ regression-data:
 
 random-forest:
   n-estimators: 300
+  update-every: 3
+  add-estimators: 1
