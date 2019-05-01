@@ -58,7 +58,7 @@ lda:
     min-count: 3
     max-freq: 0.02
 
-  topics: 100
+  topics: 300
   epochs: 1500
   chunk-size: 6000
 #  eval-every: 100
@@ -71,5 +71,5 @@ regression-data:
 
 random-forest:
   n-estimators: 300
-  update-every: 3
-  add-estimators: 1
+  update-every: 60
+  add-estimators: 10

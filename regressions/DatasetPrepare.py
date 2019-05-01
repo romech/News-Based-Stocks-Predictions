@@ -59,10 +59,16 @@ def get_feature_names():
 
 
 def _get_target_values(table):
-    return (table.Close.diff(-1).shift(1) / table.Open).dropna()
+    prophet_df = pd.read_csv(config("path.fbprophet"), index_col='Date')
+    return prophet_df.Predicted - prophet_df.Actual
+
+# def _get_target_values(table):
+#     return (table.Close.diff(-1).shift(1) / table.Open).dropna()
 
 
 def _topics_as_table(corpus_topics: list):
+    if not corpus_topics:
+        raise Exception("Empty list")
     topic_ids, probs = zip(*flatten(corpus_topics))
     doc_ids = list(flatten([repeat(i, len(doc_descr)) for i, doc_descr in enumerate(corpus_topics)]))
 
