@@ -7,7 +7,13 @@ from utils.config import Config
 config = Config.open("../config.yml")
 
 
-def run():
+def make_articlewise_sentiments():
+    news_table = pd.read_csv(config("path.news"), sep='\t', error_bad_lines=False)
+    news_table['Polarity'] = news_table.News.apply(_get_polarity)
+    news_table[['Polarity', 'Date', 'News']].to_csv(config("path.article-polarity"), sep='\t', index_label='Id')
+
+
+def make_daily_sentiments():
     news_table = pd.read_csv(config("path.news"), sep='\t', error_bad_lines=False)
     news_table['Polarity'] = news_table.News.apply(_get_polarity)
     percentile_agg_funcs = [percentile_func(q) for q in config("regression-data.sentiment-percentiles")]
@@ -27,5 +33,9 @@ def percentile_func(value):
     return func
 
 
+def run():
+    make_daily_sentiments()
+
+
 if __name__ == '__main__':
-    run()
+    make_articlewise_sentiments()

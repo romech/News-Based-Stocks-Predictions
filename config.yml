@@ -10,7 +10,9 @@ path:
   stems-split: ../data/intermediate/stems_{}.txt # meaningful for train only
   split-tags: ../data/intermediate/stems_{}_dates.txt
   splits-tags: ../data/intermediate/splits.json
+  # sentiment analysis
   sentiments: ../data/prepared/sentiments.csv
+  article-polarity: ../data/prepared/article_sentiments.tsv
   # WordEmbeddings
   article-embeds: ../data/prepared/article_vectors.txt
   # LDA
