@@ -40,9 +40,12 @@ def run(parts_names=('train',)):
 
 
 def build_visualization(path: str, model: LdaMulticore, dictionary: Dictionary, corpus: list):
-    prepared_data = pyLDAvis.gensim.prepare(model, corpus, dictionary)
-    with open(path, "w") as f:
-        pyLDAvis.save_html(prepared_data, f)
+    try:
+        prepared_data = pyLDAvis.gensim.prepare(model, corpus, dictionary, sort_topics=False)
+        with open(path, "w") as f:
+            pyLDAvis.save_html(prepared_data, f)
+    except TypeError:
+        print("That visualization bug again")
 
 
 def run_visualization():

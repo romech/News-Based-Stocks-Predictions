@@ -4,6 +4,7 @@ path:
   stocks: data/source/DJIA_table.csv
   combined: data/source/Combined_News_DJIA.csv
   fbprophet: data/source/FbProphecies.csv
+  fasttext-train: data/source/another_news_corpus.txt
   # tokenizing, stemming, splitting
   tokenized: data/intermediate/news_tokenized.csv
   stemmed: data/intermediate/news_stemmed.csv
@@ -14,6 +15,8 @@ path:
   sentiments: data/prepared/sentiments.csv
   article-polarity: data/prepared/article_sentiments.tsv
   # WordEmbeddings
+  prepare-fasttext: data/intermediate/prep_train_fast.txt
+  fasttext-model: data/intermediate/fasttext/model.bin
   article-embeds: data/prepared/article_vectors.txt
   # LDA
   lda-log: data/intermediate/lda/{}/lda.log
