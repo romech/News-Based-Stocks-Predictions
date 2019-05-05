@@ -51,19 +51,19 @@ def prepare_stocks():
 
 
 def get_feature_names():
-    if feature_names is not None:
-        return feature_names
-    else:
+    global feature_names
+    if feature_names is None:
         with open(config("path.features-descr"), "r") as description_json:
-            return list(json.load(description_json).values())
+            feature_names = list(json.load(description_json).values())
+    return feature_names
 
-
-def _get_target_values(table):
-    prophet_df = pd.read_csv(config("path.fbprophet"), index_col='Date')
-    return prophet_df.Predicted - prophet_df.Actual
 
 # def _get_target_values(table):
-#     return (table.Close.diff(-1).shift(1) / table.Open).dropna()
+#     prophet_df = pd.read_csv(config("path.fbprophet"), index_col='Date')
+#     return prophet_df.Predicted - prophet_df.Actual
+
+def _get_target_values(table):
+    return (table.Close.diff(-1).shift(1) / table.Open).dropna()
 
 
 def _topics_as_table(corpus_topics: list):
