@@ -1,6 +1,6 @@
 from preprocess import StanfordDocumentTokenizer, TrainTestSplit, Stemming
 from lda import LDATraining, LDAPrediction
-from regressions import DatasetPrepare, RandomForestPrediction
+from regressions import DatasetPrepare
 
 """
 May need to run this:
@@ -15,4 +15,3 @@ TrainTestSplit.run()
 LDATraining.run()
 LDAPrediction.run()
 DatasetPrepare.run()
-RandomForestPrediction.run()

@@ -1,3 +1,4 @@
+import os
 import yaml
 
 
@@ -7,6 +8,8 @@ class Config:
 
     @classmethod
     def open(cls, path):
+        if not os.path.exists(path):
+            path = "config.yml"
         with open(path, "r") as cfg_file:
             return Config(yaml.full_load(cfg_file))
 

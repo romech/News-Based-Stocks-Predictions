@@ -1,35 +1,35 @@
 path:
   # source
-  news: ../data/source/RedditNews.tsv
-  stocks: ../data/source/DJIA_table.csv
-  combined: ../data/source/Combined_News_DJIA.csv
-  fbprophet: ../data/source/FbProphecies.csv
-  # intermediate
-  tokenized: ../data/intermediate/news_tokenized.csv
-  stemmed: ../data/intermediate/news_stemmed.csv
-  stems-split: ../data/intermediate/stems_{}.txt # meaningful for train only
-  split-tags: ../data/intermediate/stems_{}_dates.txt
-  splits-tags: ../data/intermediate/splits.json
+  news: data/source/RedditNews.tsv
+  stocks: data/source/DJIA_table.csv
+  combined: data/source/Combined_News_DJIA.csv
+  fbprophet: data/source/FbProphecies.csv
+  # tokenizing, stemming, splitting
+  tokenized: data/intermediate/news_tokenized.csv
+  stemmed: data/intermediate/news_stemmed.csv
+  stems-split: data/intermediate/stems_{}.txt # meaningful for train only
+  split-tags: data/intermediate/stems_{}_dates.txt
+  splits-tags: data/intermediate/splits.json
   # sentiment analysis
-  sentiments: ../data/prepared/sentiments.csv
-  article-polarity: ../data/prepared/article_sentiments.tsv
+  sentiments: data/prepared/sentiments.csv
+  article-polarity: data/prepared/article_sentiments.tsv
   # WordEmbeddings
-  article-embeds: ../data/prepared/article_vectors.txt
+  article-embeds: data/prepared/article_vectors.txt
   # LDA
-  lda-log: ../data/intermediate/lda/{}/lda.log
-  lda-summary: ../data/intermediate/lda/{}/summary.tsv
-  lda-model: ../data/intermediate/lda/{}/model
-  lda-vis: ../data/intermediate/lda/{}/visualization.html
-  lda-pointer: ../data/intermediate/lda/latest.txt
+  lda-log: data/intermediate/lda/{}/lda.log
+  lda-summary: data/intermediate/lda/{}/summary.tsv
+  lda-model: data/intermediate/lda/{}/model
+  lda-vis: data/intermediate/lda/{}/visualization.html
+  lda-pointer: data/intermediate/lda/latest.txt
   # Further training
-  topic-distr: ../data/intermediate/topics_{}.txt # probably useless
-  day-features: ../data/prepared/features_{}.csv
-  features-descr: ../data/prepared/features_description.json
-  target: ../data/prepared/target_{}.csv
+  topic-distr: data/intermediate/topics_{}.txt # probably useless
+  day-features: data/prepared/features_{}.csv
+  features-descr: data/prepared/features_description.json
+  target: data/prepared/target_{}.csv
 
 # Tokenizig (see https://nlp.stanford.edu/software/tokenizer.html)
 stanford-tokenizer:
-  classpath: '../stanford-corenlp-full-2018-10-05/*'
+  classpath: 'stanford-corenlp-full-2018-10-05/*'
   parameters:
     - preserveLines
     - lowerCase
@@ -73,5 +73,5 @@ regression-data:
 
 random-forest:
   n-estimators: 300
-  update-every: 60
-  add-estimators: 10
+  update-every: 20
+  add-estimators: 2
