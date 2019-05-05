@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator
 
+from regressions.simulation import trading_outcome
+
 
 class OnlineScorer(BaseEstimator):
     """
@@ -19,9 +21,10 @@ class OnlineScorer(BaseEstimator):
             predictions.append(self.predict(batch_X))
             self.update(batch_X, batch_y)
 
-        errors = np.concatenate(predictions) - y
-        print(pd.Series(errors).describe())
-        return np.mean(errors)
+        predictions_array = np.concatenate(predictions)
+        errors = predictions_array - y
+        print(pd.Series(predictions_array - y).describe())
+        return np.mean(errors), trading_outcome(y, predictions_array)
 
     def update(self, X, y):
         raise Exception("Should be implemented if warm start mode is on.")
@@ -48,6 +51,7 @@ class FakeOnlineScorer:
             self.fit(X=np.vstack([self._train_X, batch_X]),
                      y=np.concatenate([self._train_y, batch_y]))
 
-        errors = np.concatenate(predictions) - y
+        predictions_array = np.concatenate(predictions)
+        errors = predictions_array - y
         print('Absolute error statistics:\n', pd.Series(errors).describe())
-        return np.mean(errors)
+        return np.mean(errors), trading_outcome(y, predictions_array)

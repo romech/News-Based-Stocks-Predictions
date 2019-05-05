@@ -27,11 +27,17 @@ def _describe_features(model):
     print('Most important features:', *[f"\n{feature_names[feature]} {prob * 100:.2f}%" for prob, feature in top])
 
 
-def test(model, description):
-    train_X = _load_X('train')
-    train_y = _load_y('train')
-    test_X = _load_X('test')
-    test_y = _load_y('test')
+def test(model, description, holdout=False):
+    if not holdout:
+        train_X = _load_X('train')
+        train_y = _load_y('train')
+        test_X = _load_X('test')
+        test_y = _load_y('test')
+    else:
+        train_X = np.vstack([_load_X('train'), _load_X('test')])
+        train_y = np.concatenate([_load_y('train'), _load_y('test')])
+        test_X = _load_X('holdout')
+        test_y = _load_y('holdout')
 
     print('Fitting', description)
     model.fit(train_X, train_y)
@@ -41,8 +47,8 @@ def test(model, description):
 
 
 def run():
-    test(online.RandomForest(), 'Random forest')
     test(online.Lasso(), 'Lasso')
+    test(online.RandomForest(), 'Random forest')
 
 
 if __name__ == '__main__':
