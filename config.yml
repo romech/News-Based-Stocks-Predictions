@@ -14,10 +14,14 @@ path:
   # sentiment analysis
   sentiments: data/prepared/sentiments.csv
   article-polarity: data/prepared/article_sentiments.tsv
-  # WordEmbeddings
+  # WordEmbeddings & TF-IDF
   prepare-fasttext: data/intermediate/prep_train_fast.txt
   fasttext-model: data/intermediate/fasttext/model.bin
+  word-embeds: data/intermediate/fasttext/word-vectors.txt
   article-embeds: data/prepared/article_vectors.txt
+  article-weighted-embeds: data/prepared/article_weighted_vectors.tsv
+  tf-corpus: data/intermediate/fasttext/tf_corpus.txt
+  idf-corpus: data/intermediate/fasttext/idf_corpus.txt
   # LDA
   lda-log: data/intermediate/lda/{}/lda.log
   lda-summary: data/intermediate/lda/{}/summary.tsv

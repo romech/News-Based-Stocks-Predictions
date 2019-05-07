@@ -1,3 +1,4 @@
+from embeddings import ArticleEmbeddings
 from preprocess import StanfordDocumentTokenizer, TrainTestSplit, Stemming
 from lda import LDATraining, LDAPrediction
 from regressions import DatasetPrepare, StandardTest
@@ -14,5 +15,6 @@ Stemming.run()
 TrainTestSplit.run()
 LDATraining.run()
 LDAPrediction.run()
+ArticleEmbeddings.run()
 DatasetPrepare.run()
 StandardTest.run()
